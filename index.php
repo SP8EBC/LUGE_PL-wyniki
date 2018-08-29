@@ -140,7 +140,7 @@ while($row = pg_fetch_assoc($ret)) {
             echo "<tr>";
                 echo "<td>" . $crow['competition_type_name'] . "</td>";
                 echo "<td>" . pg_fetch_result($countResult, 0, 'count') . "</td>";
-                echo "<td><button type=\"button\" class=\"btn btn-outline-dark\">Pokaż</button></td>";
+                echo "<td><a href=\"showCompetition.php?competitionId=" . $crow['competition_serial_number'] . "\"  class=\"btn btn-outline-dark\" role=\"button\">Pokaż</a></td>";
             echo "</tr>";
         }
         
