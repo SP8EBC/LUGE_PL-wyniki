@@ -62,8 +62,8 @@ if(!$ret) {
 while($row = pg_fetch_assoc($ret)) {
     $allCmpQuery = "SELECT
     competition_data.competition_serial_number,
-    competition_data.competition_id,
-    competition_data.competition_type_name
+    competitions_to_competition_mapping.competition_type_name,
+    competition_data.competition_id
     FROM
     public.competitions_to_competition_mapping
     JOIN
@@ -72,9 +72,9 @@ while($row = pg_fetch_assoc($ret)) {
     competitions_to_competition_mapping.cmps_name = '" . $row['competitions_name'] . "'
     GROUP BY
     competitions_to_competition_mapping.competition_serial_number,
+    competitions_to_competition_mapping.competition_type_name,
     competition_data.competition_serial_number,
-    competition_data.competition_id,
-    competition_data.competition_type_name";
+    competition_data.competition_id";
     
     $allCmpResult = pg_query($db, $allCmpQuery);
     

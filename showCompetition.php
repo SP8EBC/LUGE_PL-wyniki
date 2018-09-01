@@ -22,6 +22,15 @@
 <?php
 include_once 'secret.php';
 
+//$rankSort;
+
+if ($_GET['sort'] == "rank") {
+    $rankSort = true;
+}
+else {
+    $rankSort = false;
+}
+
 $competitionId = $_GET['competitionId'];
 if (is_numeric($competitionId)) {
     $q = "SELECT
@@ -30,13 +39,23 @@ if (is_numeric($competitionId)) {
     competitor_rank,
     competitor_partial_rank,
     club_name,
-    competition_type_name,
+    total_scored_time_str,
+    birth_year,
     array_to_json(training_runs_times_str) AS training_runs_times_str,
     array_to_json(scored_runs_times_str) AS scored_runs_times_str
     FROM public.competition_data WHERE competition_serial_number = " . $_GET['competitionId'];
     
 }
 else exit();
+
+if ($rankSort) {
+    $q = $q . " ORDER BY competitor_rank DESC";
+}
+
+echo "<p>";
+echo "Sortuj według: <a href=\"?competitionId=" . $competitionId .  "\" class=\"btn btn-primary btn-sm\" role=\"button\">Numerów startowych</a>";
+echo "   <a href=\"?competitionId=" . $competitionId .  "&sort=rank\" class=\"btn btn-primary btn-sm\" role=\"button\">Lokat</a>";
+echo "</p>";
 
 $db = pg_connect( $db_string  );
 
@@ -47,7 +66,7 @@ if(!$ret) {
 } 
 
     //echo "<h2>" . $ . "</h2>";
-    echo " <table class=\"table table-striped\">
+    echo " <table class=\"table table-striped text-center\" style=\"font-size: 14px;\">
     <thead>
       <tr>
         <th>Nr Startowy</th>
@@ -55,8 +74,11 @@ if(!$ret) {
         <th>Lokata z uwzgędnieniem aktualne rozgrywanej</th>
         <th>Imię i Nazwisko</th>
         <th>Klub</th>
+        <th>Rok urodzenia</th>
         <th>Czasy w ślizgach treningowych</th>
         <th>Czasy w śizgach punktowanych</th>
+        <th>Łączny czas w ślizgach punktowanych</th>
+
 
       </tr>
     </thead>
@@ -76,6 +98,8 @@ while ($row = pg_fetch_assoc($ret)) {
     echo "<td> " . $row['competitor_partial_rank'] . " </td>";
     echo "<td> " . $row['competitor_name'] . " </td>";
     echo "<td> " . $row['club_name'] . " </td>";
+    echo "<td> " . $row['birth_year'] . " </td>";
+    
     
     echo "<td>";
     foreach($training as $k=>$v) {
@@ -94,6 +118,7 @@ while ($row = pg_fetch_assoc($ret)) {
         }
     }
     echo "</td>";
+    echo "<td> " . $row['total_scored_time_str'] . " </td>";
     
     
     echo "</tr>";
