@@ -105,9 +105,11 @@ while ($row = pg_fetch_assoc($ret)) {
     $i = 1;
     foreach($training as $k=>$v) {
         if ($v != '00:00'){
-            echo $i . ". ";
+            echo $i . " - ";
             echo $v;
             echo " <br> ";
+            $i++;
+            
         }
     }
     echo "</td>";
@@ -116,9 +118,10 @@ while ($row = pg_fetch_assoc($ret)) {
     $i = 1;
     foreach($scored as $k=>$v) {
         if ($v != '00:00'){
-            echo $i . ". ";
+            echo $i . " - ";
             echo $v;
             echo " <br> ";
+            $i++;
         }
     }
     echo "</td>";
