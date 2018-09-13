@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="pl">
   <head>
+    <title>In the name of luge we united</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -158,8 +159,6 @@ while($row = pg_fetch_assoc($ret)) {
 		<p> </p>
 		<p> </p>
 		<p> </p>
-		
-		<h5>UWAGA! System w fazie developerskiej! Zawiera dane testowe nie mające przełożenia na rzeczywistość!</h5>
 		
 		<p class="small">MKS_JG system obsługi pomiaru czasu w sporcie sankowym. Mateusz Lubecki, Bielsko-Biała 2018, tel: +48 660 43 44 46 </p>
 
